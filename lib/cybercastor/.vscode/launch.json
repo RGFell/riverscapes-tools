@@ -180,7 +180,20 @@
         "merge_vbet"
       ]
     },
-
+    {
+      "name": "🧪 EXPERIMENTAL: 🗑 Delete Projects",
+      "type": "python",
+      "request": "launch",
+      "module": "cybercastor.scripts.delete_projects",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "args": [
+        "${input:environment}",
+        "{env:DATA_ROOT}/delete_logs",
+        "{env:DATA_ROOT}/test.csv"
+      ]
+    },
 
    {
       "name": "Python: Current File",
