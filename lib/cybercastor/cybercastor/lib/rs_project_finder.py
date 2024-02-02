@@ -11,6 +11,7 @@ upstream_project_types = {
     'vbet': ['rscontext', 'channelarea', 'taudem'],
     'brat': ['rscontext', 'vbet'],
     'channel': ['rscontext'],
+    'taudem': ['rscontext', 'channelarea'],
     'confinement': ['rscontext', 'vbet'],
     'anthro': ['rscontext', 'vbet'],
     'rcat': ['rscontext', 'vbet', 'taudem', 'anthro'],
