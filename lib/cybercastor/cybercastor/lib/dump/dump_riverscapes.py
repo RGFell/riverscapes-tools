@@ -12,7 +12,7 @@ from rscommons import Logger, dotenv
 from rscommons.util import safe_makedirs
 
 
-def dump_riverscapes(sqlite_db_path, stage):
+def dump_riverscapes(sqlite_db_path, stage, clean_projects=False):
     """ DUmp all projects to a DB
 
     Args:
@@ -24,6 +24,13 @@ def dump_riverscapes(sqlite_db_path, stage):
     conn = sqlite3.connect(sqlite_db_path)
     conn.execute('PRAGMA foreign_keys = ON')
     curs = conn.cursor()
+
+    # Clean projects if requested
+    if clean_projects:
+        log.info("Cleaning projects")
+        curs.execute("DELETE FROM rs_projects")
+        curs.execute("DELETE FROM rs_project_meta")
+        conn.commit()
 
     riverscapes_api = RiverscapesAPI(stage=stage)
     search_query = riverscapes_api.load_query('searchProjects')

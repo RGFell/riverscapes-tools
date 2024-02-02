@@ -12,7 +12,7 @@ from cybercastor.lib.dump.dump_riverscapes import dump_riverscapes
 from cybercastor.lib.dump.dump_views import dump_views
 
 
-def dump_all(sqlite_db_dir, cc_stage, template_geom, rs_stage):
+def dump_all(sqlite_db_dir, cc_stage, template_geom, rs_stage, clean_projects=False):
     """_summary_
 
     Args:
@@ -47,7 +47,7 @@ def dump_all(sqlite_db_dir, cc_stage, template_geom, rs_stage):
     # Then add the cybercastor data
     # dump_cybercastor(sqlite_db_path, cc_stage, stage)
     # Then add the riverscapes data (authentication will be a browser popup)
-    dump_riverscapes(sqlite_db_path, rs_stage)
+    dump_riverscapes(sqlite_db_path, rs_stage, clean_projects)
     # # Then write any additional views
     # dump_views(sqlite_db_path)
 
@@ -88,6 +88,7 @@ if __name__ == '__main__':
     parser.add_argument('cc_stage', help='Cybercastor API stage', type=str, default='production')
     parser.add_argument('template_geom', help='the template gpkg of huc10 geometry', type=str)
     parser.add_argument('rs_stage', help='Riverscapes stage', type=str, default='production')
+    parser.add_argument('--clean_projects', help='Delete all projects from the database', action='store_true', default=False)
     parser.add_argument('--verbose', help='(optional) a little extra logging ', action='store_true', default=False)
     args = dotenv.parse_args_env(parser)
 
@@ -97,7 +98,7 @@ if __name__ == '__main__':
               "dump_sqlite.log"), verbose=args.verbose)
 
     try:
-        dump_all(args.output_db_path, args.cc_stage, args.template_geom, args.rs_stage)
+        dump_all(args.output_db_path, args.cc_stage, args.template_geom, args.rs_stage, args.clean_projects)
 
     except Exception as e:
         log.error(e)
